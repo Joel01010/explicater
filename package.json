@@ -1,7 +1,7 @@
 {
   "name": "scholium",
   "version": "1.0.0",
-  "description": "Obsidian plugin: right-click selected text to explain it with DeepSeek/ChatGPT/Claude/Gemini/Grok/Perplexity in the built-in browser, via Playwright over CDP.",
+  "description": "Obsidian plugin: right-click selected text to explain it with your web AI chat (DeepSeek, ChatGPT, Claude, Gemini, Grok, Perplexity) in the built-in browser, via Playwright over CDP.",
   "scripts": {
     "build": "node patch.mjs && node build.mjs",
     "test": "node test/selfcheck.mjs && node test/prompt.mjs",
@@ -10,7 +10,7 @@
   "keywords": [
     "obsidian",
     "obsidian-plugin",
-    "deepseek",
+    "ai",
     "playwright",
     "cdp"
   ],

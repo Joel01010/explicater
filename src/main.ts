@@ -1,15 +1,15 @@
 import { Notice, Plugin, PluginSettingTab, Setting, TFile, WorkspaceLeaf } from 'obsidian';
-import { explainWithProvider } from './deepseek';
+import { explainWithProvider } from './ai';
 import { getProvider, PROVIDERS, type Provider } from './providers';
 
-interface DeepSeekExplainSettings {
+interface ScholiumSettings {
 	providerId: string;
 }
 
-const DEFAULT_SETTINGS: DeepSeekExplainSettings = { providerId: 'deepseek' };
+const DEFAULT_SETTINGS: ScholiumSettings = { providerId: 'deepseek' };
 
-export default class DeepSeekExplainPlugin extends Plugin {
-	settings: DeepSeekExplainSettings = DEFAULT_SETTINGS;
+export default class ScholiumPlugin extends Plugin {
+	settings: ScholiumSettings = DEFAULT_SETTINGS;
 	private busy = false;
 
 	async onload() {
@@ -20,11 +20,10 @@ export default class DeepSeekExplainPlugin extends Plugin {
 			this.app.workspace.on('editor-menu', (menu, editor) => {
 				const selection = editor.getSelection();
 				if (!selection.trim()) return;
-				const provider = getProvider(this.settings.providerId);
 				menu.addItem((item) =>
 					item
-						.setTitle(`Explain with ${provider.name}`)
-						.setIcon('message-square-text')
+						.setTitle('Explain with AI')
+						.setIcon('sparkles')
 						.onClick(() => this.explain(selection))
 				);
 			})
@@ -96,7 +95,7 @@ export default class DeepSeekExplainPlugin extends Plugin {
 }
 
 class ExplainSettingTab extends PluginSettingTab {
-	constructor(app: any, private plugin: DeepSeekExplainPlugin) {
+	constructor(app: any, private plugin: ScholiumPlugin) {
 		super(app, plugin);
 	}
 
@@ -119,7 +118,7 @@ class ExplainSettingTab extends PluginSettingTab {
 			});
 
 		containerEl.createEl('p', {
-			text: 'DeepSeek is verified end-to-end. Other providers use the same mechanism with their standard input selectors; if one fails, its error notice will say so.',
+			text: 'All providers use the same mechanism with their standard input selectors. DeepSeek is verified end-to-end; if another provider fails, its error notice will say so.',
 			cls: 'setting-item-description',
 		});
 	}

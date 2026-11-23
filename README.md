@@ -1,7 +1,7 @@
 # Scholium (Obsidian plugin)
 
-Right-click selected text in a note → **Explain with DeepSeek** (or your chosen
-AI provider). The plugin opens the provider's web chat in Obsidian's built-in
+Right-click selected text in a note → **Explain with AI** ✨ (with your chosen
+provider). The plugin opens the provider's web chat in Obsidian's built-in
 browser (the Web viewer core plugin) as a right-hand side pane, then uses
 Playwright over CDP to send your **full note as context plus the selection**
 with an "Explain this" prompt.
@@ -46,7 +46,7 @@ Without the debug port the plugin shows a notice telling you to relaunch.
 
 ## Usage
 
-Select text → right-click → **Explain with <provider>** (also the command
+Select text → right-click → **Explain with AI** (also the command
 "Explain selection with AI"). The prompt sent is:
 
 ```
@@ -69,7 +69,7 @@ verifies the message actually landed before reporting "Sent".
 - `src/main.ts` — context-menu item + command + settings tab; opens/reuses a
   `webviewer` leaf in a right-hand vertical split via `leaf.setViewState`.
 - `src/providers.ts` — provider table (URL, host, ordered composer selectors).
-- `src/deepseek.ts` — `chromium.connectOverCDP('http://127.0.0.1:9222')`, finds
+- `src/ai.ts` — `chromium.connectOverCDP('http://127.0.0.1:9222')`, finds
   the page by provider host, waits for the composer, types and sends.
 - Obsidian's built-in browser is an Electron `<webview>`, whose CDP target
   type is `webview`. Stock playwright-core ignores those targets, so
@@ -79,7 +79,7 @@ verifies the message actually landed before reporting "Sent".
   `__dirname`, which inside Obsidian is `electron.asar` and crashes the
   require). The patched library is bundled into `main.js` (~3.8 MB) by
   esbuild — no runtime dependencies.
-- React composers (verified on DeepSeek) ignore Playwright's `fill()` and
+- React composers (first verified on DeepSeek) ignore Playwright's `fill()` and
   trusted Enter inside this webview. The working path is the native value
   setter + `input` event + DOM-dispatched `KeyboardEvent` Enter
   (contenteditable composers use `execCommand('insertText')`), followed by a
@@ -95,15 +95,15 @@ node patch.mjs            # patch playwright-core webview target filter + inline
 node build.mjs            # esbuild bundle -> dist/main.js + manifest.json
 node test/selfcheck.mjs   # asserts webview target attaches as page + fill works
 node test/prompt.mjs      # prompt builder + provider table asserts
-node test/live-deepseek.mjs  # loads real chat.deepseek.com headless (nothing sent)
+node test/live-provider.mjs  # loads real chat.deepseek.com headless (nothing sent)
 ./node_modules/.bin/tsc -p tsconfig.json --noEmit
 ```
 
 E2E against a running Obsidian (debug-port launch + provider tab open):
 
 ```sh
-./node_modules/.bin/esbuild src/deepseek.ts --bundle --platform=node --format=cjs --outfile=dist/deepseek.cjs
-# copy dist/deepseek.cjs + test/e2e-send.cjs next to each other, then:
+./node_modules/.bin/esbuild src/ai.ts --bundle --platform=node --format=cjs --outfile=dist/ai.cjs
+# copy dist/ai.cjs + test/e2e-send.cjs next to each other, then:
 node e2e-send.cjs   # sends a marked prompt and asserts it appears in the chat
 ```
 

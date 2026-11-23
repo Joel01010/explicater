@@ -1,7 +1,7 @@
 // Assert the prompt includes the full note when present, falls back otherwise.
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
-const { buildPrompt } = createRequire(import.meta.url)('../dist/deepseek-test.js');
+const { buildPrompt } = createRequire(import.meta.url)('../dist/ai-test.js');
 const { getProvider, PROVIDERS } = createRequire(import.meta.url)('../dist/providers-test.js');
 
 const note = { name: 'CDC Notes', content: '# Replication\nReads binary transaction logs (Oracle Redo Logs).\n' };

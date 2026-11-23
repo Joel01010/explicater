@@ -20,7 +20,7 @@ try {
 	if (visible) {
 		await input.fill('Explain this:\n\nprobe text');
 		assert.equal(await input.inputValue(), 'Explain this:\n\nprobe text');
-		console.log('LIVE PASS: fill works on real DeepSeek (not sent)');
+		console.log('LIVE PASS: fill works on the real provider page (not sent)');
 	} else {
 		const textareas = await page.locator('textarea').count();
 		const bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 300);

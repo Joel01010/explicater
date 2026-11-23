@@ -30,7 +30,7 @@ export async function explainWithProvider(
 				`${provider.name} input box not found — if the tab shows a login page, sign in once in that tab, then try again.`
 			);
 		}
-		// shortcut: React composers (verified on DeepSeek) ignore Playwright's
+		// shortcut: React composers (first verified on DeepSeek) ignore Playwright's
 		// fill() and trusted Enter on this webview; native value setter +
 		// input event + DOM KeyboardEvent is the verified-working path.
 		const prompt = buildPrompt(text, note);

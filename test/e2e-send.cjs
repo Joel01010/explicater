@@ -1,8 +1,8 @@
 // E2E via the plugin's real playwright code: send a marked prompt with note
 // context, then verify it actually landed in the provider chat.
-// Run next to a bundled dist/deepseek.cjs (see README), with Obsidian launched
+// Run next to a bundled dist/ai.cjs (see README), with Obsidian launched
 // with --remote-debugging-port=9222 and the provider tab open and logged in.
-const { explainWithProvider } = require('./deepseek.cjs');
+const { explainWithProvider } = require('./ai.cjs');
 const { getProvider } = require('./providers.cjs');
 const http = require('http');
 const getJSON = (path) => new Promise((res, rej) => {
