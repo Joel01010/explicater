@@ -1,4 +1,4 @@
-import { Notice, Plugin, PluginSettingTab, Setting, TFile, WorkspaceLeaf } from 'obsidian';
+import { App, Notice, Plugin, PluginSettingTab, Setting, TFile, WorkspaceLeaf } from 'obsidian';
 import { explainWithProvider } from './ai';
 import { getProvider, PROVIDERS, type Provider } from './providers';
 
@@ -8,12 +8,26 @@ interface ScholiumSettings {
 
 const DEFAULT_SETTINGS: ScholiumSettings = { providerId: 'deepseek' };
 
+// Minimal shapes for the internal APIs this plugin touches (web viewer core
+// plugin + workspace leaf internals), so the rest of the code stays typed.
+interface InternalPlugin {
+	enabled: boolean;
+	enable(): Promise<void>;
+}
+interface AppWithInternals extends App {
+	internalPlugins?: { getPluginById?(id: string): InternalPlugin | undefined };
+}
+interface LeafParent {
+	children?: unknown[];
+}
+
 export default class ScholiumPlugin extends Plugin {
 	settings: ScholiumSettings = DEFAULT_SETTINGS;
 	private busy = false;
 
 	async onload() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+		const loaded = (await this.loadData()) as Partial<ScholiumSettings> | null;
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, loaded);
 		this.addSettingTab(new ExplainSettingTab(this.app, this));
 
 		this.registerEvent(
@@ -33,7 +47,7 @@ export default class ScholiumPlugin extends Plugin {
 			name: 'Explain selection with AI',
 			editorCallback: (editor) => {
 				const selection = editor.getSelection();
-				if (selection.trim()) this.explain(selection);
+				if (selection.trim()) void this.explain(selection);
 				else new Notice('Select some text first.');
 			},
 		});
@@ -62,16 +76,20 @@ export default class ScholiumPlugin extends Plugin {
 
 	private async openProviderPane(provider: Provider): Promise<WorkspaceLeaf> {
 		// The web viewer core plugin must be on for a "webviewer" leaf to exist.
-		const webviewer = (this.app as any).internalPlugins?.getPluginById?.('webviewer');
+		const webviewer = (this.app as AppWithInternals).internalPlugins?.getPluginById?.('webviewer');
 		if (webviewer && !webviewer.enabled) await webviewer.enable();
 
 		const existing = this.app.workspace
 			.getLeavesOfType('webviewer')
-			.find((l) => String((l.getViewState().state as any)?.url ?? '').includes(provider.host));
+			.find((l) => {
+				const state = l.getViewState().state as { url?: unknown } | undefined;
+				const url = typeof state?.url === 'string' ? state.url : '';
+				return url.includes(provider.host);
+			});
 		if (existing) {
 			// Keep the AI in a right-hand split next to the note, not a tab in
 			// the main group. Only move it when it isn't already alone in its pane.
-			const siblings = (existing.parent as any)?.children ?? [];
+			const siblings = (existing.parent as LeafParent | null)?.children ?? [];
 			if (siblings.length <= 1) return existing;
 			const noteLeaf = this.app.workspace.getMostRecentLeaf();
 			const split = this.app.workspace.createLeafBySplit(
@@ -95,7 +113,7 @@ export default class ScholiumPlugin extends Plugin {
 }
 
 class ExplainSettingTab extends PluginSettingTab {
-	constructor(app: any, private plugin: ScholiumPlugin) {
+	constructor(app: App, private plugin: ScholiumPlugin) {
 		super(app, plugin);
 	}
 

@@ -12,6 +12,32 @@ your existing logged-in sessions.
 *A scholium is a scholar's explanatory note written in the margin of a text —
 which is exactly what this plugin does for your notes.*
 
+## Disclosures
+
+- **Account required:** you must be signed in to the AI provider's web chat
+  (e.g. a DeepSeek or ChatGPT account). The plugin uses your existing browser
+  session; it never asks for or stores credentials.
+- **Network use:** the plugin connects to `http://127.0.0.1:9222` (Obsidian's
+  own Chrome DevTools Protocol endpoint, loopback only) to drive the built-in
+  browser, and the provider's website (e.g. `chat.deepseek.com`,
+  `chatgpt.com`, `claude.ai`, `gemini.google.com`, `grok.com`,
+  `perplexity.ai`) loads in that browser. **Your full active note and selected
+  text are sent to the chosen provider** as the chat prompt, subject to that
+  provider's privacy policy. No other remote services are contacted; the
+  plugin itself has no telemetry and no server.
+- **Debug port required:** Obsidian must be launched with
+  `--remote-debugging-port=9222`. While that flag is set, any local process
+  can drive Obsidian's webviews — use your normal shortcut when you don't
+  need this plugin.
+- **Bundled third-party code:** `main.js` bundles a patched copy of
+  [playwright-core](https://github.com/microsoft/playwright) (Apache-2.0,
+  © Microsoft). The patch (see `patch.mjs`) only makes Playwright attach
+  Electron `webview` CDP targets and inlines two JSON files; it is applied at
+  build time and the full source is in this repository. Nothing is downloaded
+  or executed at runtime beyond the provider websites above.
+- **Terms of service:** automating a provider's web chat may be restricted by
+  its terms. Keep usage personal and interactive.
+
 ## Providers
 
 Settings → Scholium → **AI provider**:
