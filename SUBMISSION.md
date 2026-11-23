@@ -1,4 +1,4 @@
-# Submission readiness — Scholium v1.0.0
+# Submission readiness — Explicater v1.0.0
 
 Target: Obsidian Community directory (https://community.obsidian.md).
 Submission is now done through the community site (sign in with an Obsidian
@@ -13,7 +13,7 @@ the manifest `version`.
 |---|---|
 | README.md describing purpose + usage | ✅ |
 | LICENSE (MIT, GitHub-recognized) | ✅ |
-| manifest.json at repo root, id unique, no "obsidian" in id | ✅ `scholium` — checked against all 10,745 directory entries |
+| manifest.json at repo root, id unique, no "obsidian" in id | ✅ `explicater` — checked against all 10,745 directory entries |
 | Description ≤250 chars, ends with ".", action-first, no emoji | ✅ 153 chars |
 | `isDesktopOnly: true` (uses Node/Electron APIs via Playwright) | ✅ |
 | `minAppVersion` set | ✅ 1.8.0 (Web viewer core plugin introduced in 1.8) |
@@ -54,5 +54,5 @@ the manifest `version`.
    `manifest.json`, delete the `v1.0.0` release/tag.
 2. Sign in at https://community.obsidian.md with an Obsidian account.
 3. Link the GitHub account (Joel01010) to the profile.
-4. "Add a plugin" → point at `Joel01010/scholium`.
+4. "Add a plugin" → point at `Joel01010/explicater`.
 5. Watch the automated review scorecard; fix any Errors it reports.

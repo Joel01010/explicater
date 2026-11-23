@@ -1,5 +1,5 @@
 {
-  "name": "scholium",
+  "name": "explicater",
   "version": "1.0.0",
   "description": "Obsidian plugin: right-click selected text to explain it with your web AI chat (DeepSeek, ChatGPT, Claude, Gemini, Grok, Perplexity) in the built-in browser, via Playwright over CDP.",
   "scripts": {

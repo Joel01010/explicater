@@ -1,6 +1,6 @@
 {
-  "id": "scholium",
-  "name": "Scholium",
+  "id": "explicater",
+  "name": "Explicater",
   "version": "1.0.0",
   "minAppVersion": "1.8.0",
   "description": "Explain selected text with your AI chat (DeepSeek, ChatGPT, Claude, Gemini, Grok, or Perplexity) using the full note as context, in the built-in browser.",

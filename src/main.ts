@@ -2,11 +2,11 @@ import { App, Notice, Plugin, PluginSettingTab, Setting, TFile, WorkspaceLeaf } 
 import { explainWithProvider } from './ai';
 import { getProvider, PROVIDERS, type Provider } from './providers';
 
-interface ScholiumSettings {
+interface ExplicaterSettings {
 	providerId: string;
 }
 
-const DEFAULT_SETTINGS: ScholiumSettings = { providerId: 'deepseek' };
+const DEFAULT_SETTINGS: ExplicaterSettings = { providerId: 'deepseek' };
 
 // Minimal shapes for the internal APIs this plugin touches (web viewer core
 // plugin + workspace leaf internals), so the rest of the code stays typed.
@@ -21,12 +21,12 @@ interface LeafParent {
 	children?: unknown[];
 }
 
-export default class ScholiumPlugin extends Plugin {
-	settings: ScholiumSettings = DEFAULT_SETTINGS;
+export default class ExplicaterPlugin extends Plugin {
+	settings: ExplicaterSettings = DEFAULT_SETTINGS;
 	private busy = false;
 
 	async onload() {
-		const loaded = (await this.loadData()) as Partial<ScholiumSettings> | null;
+		const loaded = (await this.loadData()) as Partial<ExplicaterSettings> | null;
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, loaded);
 		this.addSettingTab(new ExplainSettingTab(this.app, this));
 
@@ -68,7 +68,7 @@ export default class ScholiumPlugin extends Plugin {
 			this.app.workspace.setActiveLeaf(leaf, { focus: false });
 			new Notice(`Sent to ${provider.name}.`);
 		} catch (e) {
-			new Notice(`Scholium: ${(e as Error).message ?? e}`, 10000);
+			new Notice(`Explicater: ${(e as Error).message ?? e}`, 10000);
 		} finally {
 			this.busy = false;
 		}
@@ -113,7 +113,7 @@ export default class ScholiumPlugin extends Plugin {
 }
 
 class ExplainSettingTab extends PluginSettingTab {
-	constructor(app: App, private plugin: ScholiumPlugin) {
+	constructor(app: App, private plugin: ExplicaterPlugin) {
 		super(app, plugin);
 	}
 

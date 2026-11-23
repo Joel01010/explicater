@@ -1,4 +1,4 @@
-# Scholium (Obsidian plugin)
+# Explicater (Obsidian plugin)
 
 Right-click selected text in a note → **Explain with AI** ✨ (with your chosen
 provider). The plugin opens the provider's web chat in Obsidian's built-in
@@ -9,8 +9,8 @@ with an "Explain this" prompt.
 No API keys and no per-token billing — it drives the real chat websites using
 your existing logged-in sessions.
 
-*A scholium is a scholar's explanatory note written in the margin of a text —
-which is exactly what this plugin does for your notes.*
+*Explicater — one who explicates: it unfolds the meaning of a passage, which is
+exactly what this plugin does for your notes.*
 
 ## Disclosures
 
@@ -40,7 +40,7 @@ which is exactly what this plugin does for your notes.*
 
 ## Providers
 
-Settings → Scholium → **AI provider**:
+Settings → Explicater → **AI provider**:
 
 | Provider | Status |
 |---|---|
@@ -54,8 +54,8 @@ reports an honest error notice instead of failing silently.
 ## Install
 
 1. Copy `main.js` and `manifest.json` (from `dist/` after building, or a
-   release) into `<your-vault>/.obsidian/plugins/scholium/`.
-2. Settings → Community plugins → enable **Scholium** (turn off
+   release) into `<your-vault>/.obsidian/plugins/explicater/`.
+2. Settings → Community plugins → enable **Explicater** (turn off
    Restricted mode first if needed). The Web viewer core plugin is enabled
    automatically when needed.
 3. **Launch Obsidian with the CDP debug port** — required so Playwright can

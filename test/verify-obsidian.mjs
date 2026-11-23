@@ -1,4 +1,4 @@
-// Verify via CDP that Obsidian loaded the scholium plugin.
+// Verify via CDP that Obsidian loaded the explicater plugin.
 const list = await (await fetch('http://127.0.0.1:9222/json/list')).json();
 console.log('targets:', list.map((t) => `${t.type} ${t.url.slice(0, 80)}`).join(' | '));
 const main = list.find((t) => t.type === 'page' && t.url.startsWith('app://'));
@@ -10,10 +10,10 @@ const result = await new Promise((res) => {
 	ws.onmessage = (ev) => { const m = JSON.parse(ev.data); if (m.id === 1) res(m); };
 	send(1, 'Runtime.evaluate', {
 		expression: `(() => {
-			const p = window.app?.plugins?.plugins?.['scholium'];
+			const p = window.app?.plugins?.plugins?.['explicater'];
 			return JSON.stringify({
 				loaded: !!p,
-				enabled: window.app?.plugins?.enabledPlugins?.has('scholium') ?? false,
+				enabled: window.app?.plugins?.enabledPlugins?.has('explicater') ?? false,
 				webviewer: !!window.app?.internalPlugins?.getPluginById?.('webviewer')?.enabled,
 				version: window.app?.version ?? null,
 			});
