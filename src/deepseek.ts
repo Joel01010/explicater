@@ -17,7 +17,7 @@ export async function explainWithProvider(
 		browser = await chromium.connectOverCDP(CDP_ENDPOINT, { timeout: 5000 });
 	} catch {
 		throw new Error(
-			"Can't reach Obsidian's debug port 9222. Close Obsidian and reopen it with the \"Obsidian (DeepSeek Explain)\" launcher."
+			"Can't reach Obsidian's debug port 9222. Close Obsidian and reopen it with the \"Obsidian (Scholium)\" launcher."
 		);
 	}
 	try {

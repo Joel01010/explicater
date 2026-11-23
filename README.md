@@ -1,4 +1,4 @@
-# DeepSeek Explain (Obsidian plugin)
+# Scholium (Obsidian plugin)
 
 Right-click selected text in a note → **Explain with DeepSeek** (or your chosen
 AI provider). The plugin opens the provider's web chat in Obsidian's built-in
@@ -9,9 +9,12 @@ with an "Explain this" prompt.
 No API keys and no per-token billing — it drives the real chat websites using
 your existing logged-in sessions.
 
+*A scholium is a scholar's explanatory note written in the margin of a text —
+which is exactly what this plugin does for your notes.*
+
 ## Providers
 
-Settings → DeepSeek Explain → **AI provider**:
+Settings → Scholium → **AI provider**:
 
 | Provider | Status |
 |---|---|
@@ -25,8 +28,8 @@ reports an honest error notice instead of failing silently.
 ## Install
 
 1. Copy `main.js` and `manifest.json` (from `dist/` after building, or a
-   release) into `<your-vault>/.obsidian/plugins/deepseek-explain/`.
-2. Settings → Community plugins → enable **DeepSeek Explain** (turn off
+   release) into `<your-vault>/.obsidian/plugins/scholium/`.
+2. Settings → Community plugins → enable **Scholium** (turn off
    Restricted mode first if needed). The Web viewer core plugin is enabled
    automatically when needed.
 3. **Launch Obsidian with the CDP debug port** — required so Playwright can

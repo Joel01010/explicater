@@ -55,7 +55,7 @@ export default class DeepSeekExplainPlugin extends Plugin {
 			this.app.workspace.setActiveLeaf(leaf, { focus: false });
 			new Notice(`Sent to ${provider.name}.`);
 		} catch (e) {
-			new Notice(`DeepSeek Explain: ${(e as Error).message ?? e}`, 10000);
+			new Notice(`Scholium: ${(e as Error).message ?? e}`, 10000);
 		} finally {
 			this.busy = false;
 		}
