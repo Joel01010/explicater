@@ -1,0 +1,1 @@
+{"id": "deepseek-explain", "name": "DeepSeek Explain", "version": "1.0.0", "minAppVersion": "1.8.0", "description": "Right-click selected text to ask DeepSeek (or ChatGPT, Claude, Gemini, Grok, Perplexity) to explain it with your full note as context, in Obsidian's built-in browser via Playwright over CDP.", "author": "Joel01010", "isDesktopOnly": true}
